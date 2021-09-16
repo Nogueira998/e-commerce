@@ -4,7 +4,8 @@ import axios from "axios";
 import "../css/ManagerProducts.css";
 import NewProduct from "./NewProduct";
 import EditProduct from "./EditProduct";
-import FlipMove from "react-flip-move";
+
+let isMounted = false;
 
 class ManagerProducts extends React.Component {
   state = {
@@ -20,6 +21,7 @@ class ManagerProducts extends React.Component {
   };
 
   componentDidMount = async () => {
+    isMounted = true;
     try {
       const response = await axios.get(
         "https://ironrest.herokuapp.com/caiofilipeSuperstore"
@@ -38,15 +40,23 @@ class ManagerProducts extends React.Component {
     }
   };
 
-  componentDidUpdate = async () => {
-    try {
-      const response = await axios.get(
-        "https://ironrest.herokuapp.com/caiofilipeSuperstore"
-      );
-      this.setState({ products: [...response.data] });
-    } catch (err) {
-      console.error(err);
+  componentDidUpdate = async (prevProps, prevState) => {
+    if (prevState !== this.state) {
+      try {
+        const response = await axios.get(
+          "https://ironrest.herokuapp.com/caiofilipeSuperstore"
+        );
+        if (isMounted) {
+          this.setState({ products: [...response.data] });
+        }
+      } catch (err) {
+        console.error(err);
+      }
     }
+  };
+
+  componentWillUnmount = () => {
+    isMounted = false;
   };
 
   handleChange = (event) => {
@@ -55,9 +65,9 @@ class ManagerProducts extends React.Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-    if(this.state.edit) {
-      this.setState({edit: false})
-    } 
+    if (this.state.edit) {
+      this.setState({ edit: false });
+    }
     let stateClone = {
       _id: this.state._id,
       title: this.state.title,
@@ -79,7 +89,8 @@ class ManagerProducts extends React.Component {
           category: "",
           image: "",
           rating: {},
-          edit: false,})
+          edit: false,
+        });
       })
       .catch((err) => console.error(err));
   };
@@ -96,7 +107,10 @@ class ManagerProducts extends React.Component {
     };
 
     axios
-      .put(`https://ironrest.herokuapp.com/caiofilipeSuperstore/${this.state._id}`, stateClone)
+      .put(
+        `https://ironrest.herokuapp.com/caiofilipeSuperstore/${this.state._id}`,
+        stateClone
+      )
       .then((response) => {
         console.log(response);
         this.setState({
@@ -105,11 +119,11 @@ class ManagerProducts extends React.Component {
           description: "",
           category: "",
           image: "",
-          edit: false,})
+          edit: false,
+        });
       })
       .catch((err) => console.error(err));
   };
-
 
   rating = (event) => {
     this.setState((prevState) => ({
@@ -135,7 +149,7 @@ class ManagerProducts extends React.Component {
     const found = this.state.products.find(
       (element) => element._id === event.target.value
     );
-    return this.setState({ ...found , edit: true});
+    return this.setState({ ...found, edit: true });
   };
 
   render() {
@@ -161,14 +175,13 @@ class ManagerProducts extends React.Component {
           {/* Lista de produtos */}
           <div className="col-6 mt-3">
             <h2>Product List</h2>
-            <FlipMove enterAnimation="elevator" leaveAnimation="elevator" />
             <div
               className="list-group bg-white"
               style={{ maxHeight: "85vh", overflow: "scroll" }}
             >
               {this.state.products.map((productObj) => {
                 return (
-                  <div className="listProduct">
+                  <div key={productObj._id} className="listProduct">
                     <img src={productObj.image} alt="imagem do produto" />
                     <div>
                       <p className="checkoutProduct__title">

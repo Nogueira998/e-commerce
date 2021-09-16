@@ -39,7 +39,6 @@ function Product(props) {
         <></>
       ) : (
         <div key={id} className="product">
-          {console.log(props)}
           <div className="product_info">
             <p>{title}</p>
             <div className="product_price">

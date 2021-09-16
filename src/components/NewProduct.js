@@ -62,7 +62,7 @@ function NewProduct(props) {
               required
             >
               {newCategoryArr.map((obj) => (
-                <option>{obj}</option>
+                <option key={obj}>{obj}</option>
               ))}
             </select>
           </div>
