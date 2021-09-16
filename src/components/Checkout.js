@@ -19,17 +19,16 @@ function Checkout() {
 
           {basket.map((item) => (
             <CheckoutProduct
-              key={item}
-              id={item.id}
-              title={item.title}
-              image={item.image}
-              price={item.price}
-              rating={item.rating}
-            />
-          ))}
-        </div>
-      </div>
-
+               key={item}
+               id={item.id}
+               title={item.title}
+               image={item.image}
+               price={item.price}
+               rating={item.rating}
+             />
+           ))}
+         </div>
+       </div>
       <div className="checkout__right">
         <Subtotal />
       </div>
