@@ -5,11 +5,11 @@
 
 ## About the project
 
-Inspired by the homonymous tv series, this project simulates an e-commerce in a simplified way, ensuring that the CRUD functions (Create Read, Update and Delete) are implemented through a public API and thus guaranteeing a working prototype.
+Inspired by the homonymous tv series, this project simulates an e-commerce in a simplified way, ensuring that the CRUD functions (Create, Read, Update and Delete) are implemented through a public API and thus guaranteeing a working prototype.
 
 ## Try now!
 
-Just follow the link:  ...
+Just follow: [Link](https://superstorecommerce.netlify.app/)
 
 ![Hello](https://github.com/filipe98freitas/e-commerce/blob/main/src/images/giphy.gif) 
 
@@ -24,7 +24,7 @@ HTML / CSS / JS / React / Bootstrap / Firebase
 
 ## More about
 
-Link  ...
+Find more about on this [Link](https://docs.google.com/presentation/d/148bPS1HYkcFZAD788oz9tQIsIviKftu3lJQpYjDBnsc/edit?usp=sharing)
 
 ## Authors
 
